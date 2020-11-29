@@ -14,7 +14,7 @@ urllib3.disable_warnings()
 app = Flask(__name__)
 
 load_dotenv()
-api.set_auth_token(getenv("GITHUB_USERNAME"), getenv("GITHUB_TOKEN"))
+api.set_auth_token(getenv("GITHUB_TOKEN"))
 api.proxies = {'https': 'http://localhost:8080', 'http': 'localhost:8080'}
 api.verify = False
 maincache = ResponseCache()

@@ -24,7 +24,7 @@ Param | Description | Defaults/Constraints
 -----|-----------|-------
 **per_page** | Number of contributors per page. | Default: 20, max: 100
 **page** | The page of data to return. | Default: 1
-**cache** | Whether to use a cached value if available. revalidate will bypass any cached responses but it won't flush the entire cache. Repositories will be refreshed individually. Options: true,false,revalidate | Default: true
+**cache** | Whether to use a cached value if available. revalidate will bypass any cached responses but it won't flush the entire cache. Repositories will be refreshed individually. | Options: true,false,revalidate Default: true
 
 ## Request Headers:
 Header | Description | Default/Constraints

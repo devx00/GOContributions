@@ -100,7 +100,7 @@ class GithubAPI(Session):
                 message = f"An unknown error occurred. API request to {resp.url} returned status {resp.status_code}."
             raise GithubAPIException(resp.status_code, message)
 
-    def set_auth_token(self, username, token):
+    def set_auth_token(self, token):
         self.headers.update({"Authorization": f"token {token}"})
 
 api = GithubAPI()
