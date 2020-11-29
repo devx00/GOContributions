@@ -9,13 +9,14 @@ from flask.signals import request_finished
 from organization import Organization
 from cache import CacheControl, ResponseCache
 from github import api
-import urllib3
-urllib3.disable_warnings()
+
 app = Flask(__name__)
 DEBUG = False
 load_dotenv()
 api.set_auth_token(getenv("GITHUB_TOKEN"))
 if DEBUG:
+    import urllib3
+    urllib3.disable_warnings()
     api.proxies = {'https': 'http://localhost:8080', 'http': 'localhost:8080'}
     api.verify = False
 maincache = ResponseCache()
