@@ -1,0 +1,20 @@
+<div class="page-container" fxLayout="column" fxLayoutAlign="space-around stretch">
+  <div class="header" *ngIf="showInput" fxFlex="40" fxLayout="column" fxLayoutAlign="end center">
+    <h1 class="mat-display-4 main-title">GOContributor</h1>
+    <h2 class="mat-subheading-2 sub-title">Input an organizations github identifier (i.e. 'Netflix') below <br /> to retrieve a list of all their contributors.</h2>
+  </div>
+  <div class="input-view-container" fxFlex="40" fxLayout="column" fxLayoutAlign="start stretch" *ngIf="showInput">
+    <div class="input-row-container" fxLayout="row" fxLayoutAlign="center center">
+     <mat-form-field appearance="outline" class="org-input">
+    <mat-label>Github Organization ID</mat-label>
+    <input #orgInput matInput (keyup.enter)="go(orgInput.value)" placeholder="Netflix" type="text" [(ngModel)]="orgname">
+    <mat-hint class="error-hint">{{errorMessage}}</mat-hint>
+
+  </mat-form-field>
+  <button mat-flat-button color="primary" class="gobutton" (click)="go(orgInput.value)">Go!</button>
+  </div>
+  </div>
+    <div class="output-view-container" fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" *ngIf="!showInput">
+      <contrib-table [orgname]="orgname" (clear)="clear()" (error)="error($event)"></contrib-table>
+  </div>
+</div>

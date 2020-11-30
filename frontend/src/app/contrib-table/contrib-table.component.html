@@ -1,0 +1,51 @@
+<div class="example-container">
+  <div class="top-row" fxLayout="row" fxLayoutAlign="space-around center">
+    <button mat-flat-button color="warn" (click)="startOver()">Start Over</button>
+    <div class="mat-subheading-2">{{orgname}}</div>
+    <button mat-flat-button color="primary" (click)="refresh()" >Refresh</button>
+  </div>
+
+
+  <div class="table-container mat-elevation-z8">
+
+    <table mat-table [dataSource]="contributors" class="example-table">
+      <!-- Number Column -->
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef>Image</th>
+        <td mat-cell *matCellDef="let row"><img class="row-image" src="{{row.image}}" /></td>
+      </ng-container>
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Username</th>
+        <td mat-cell *matCellDef="let row">{{row.username}}</td>
+      </ng-container>
+
+      <!-- State Column -->
+      <ng-container matColumnDef="contributions">
+        <th mat-header-cell *matHeaderCellDef>Contributions</th>
+        <td mat-cell *matCellDef="let row" justify="center">{{row.contributions}}</td>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let row">{{row.email}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="commit">
+        <th mat-header-cell *matHeaderCellDef>Last Commit</th>
+        <td mat-cell *matCellDef="let row">{{row.commit}}</td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <div class="loading-spinner-container" fxLayout="row" fxLayoutAlign="center center" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+
+  </div>
+  <mat-paginator [length]="total" [pageSize]="per_page" [pageSizeOptions]="[10, 20,50, 100]"></mat-paginator>
+</div>
