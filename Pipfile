@@ -13,6 +13,7 @@ requests = "*"
 python-dotenv = "*"
 pytz = "*"
 humanize = "*"
+gunicorn = "*"
 
 [requires]
 python_version = "3.9"
