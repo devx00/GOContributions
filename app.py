@@ -43,12 +43,14 @@ def organization(orgname: str) -> Union[Optional[str] , Tuple[Optional[str], int
     per_page = min(int(request.args.get('per_page', '20')), 100)
     page = int(request.args.get('page', '1'))
     top, pages = org.get_top_contributors(per_page, page)
+    count_contrib = len(org.contributors)
     org.daemon_loader()
     top_formatted = list(map(format_top_contributer, top))
     data = {
         "navigation": {
             "page": page,
             "per_page": per_page,
+            "total_contributors": count_contrib,
             "total_pages": pages
         },
         'data': top_formatted
