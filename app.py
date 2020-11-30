@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 from typing import Optional, Tuple, Union
 from github import GithubAPIException
 from utils import format_top_contributer
-from flask import Flask,request, jsonify
+from flask import Flask,request, jsonify, render_template
 from organization import Organization
 from cache import CacheControl, ResponseCache
 from github import api
@@ -22,6 +22,10 @@ if DEBUG:
     api.proxies = {'https': 'http://localhost:8080', 'http': 'localhost:8080'}
     api.verify = False
 maincache = ResponseCache()
+
+@app.route("/", methods=["GET"])
+def root():
+    return render_template('index.html')
 
 @app.route('/<orgname>') #type: ignore
 def organization(orgname: str) -> Union[Optional[str] , Tuple[Optional[str], int]]:
