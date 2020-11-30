@@ -75,6 +75,9 @@ class OrganizationNotFoundException(OrganizationException):
     """This exception is raised whenever an organization is not found"""
     pass
 
+class OrganizationTooLargeException(OrganizationException):
+    """This exception gets called when an organization has more than 250 repositories."""
+
 class RepoContribLoader(Thread):
     @classmethod
     def load(cls, repos, fn=lambda repo: repo.load_contributors()):
@@ -150,6 +153,8 @@ class Organization:
                 last_push = datetime.strptime(repo['pushed_at'],
                                             "%Y-%m-%dT%H:%M:%S%z")
                 self.repositories.append(Repository(name, url, last_push, self.force_refresh))
+        if len(self.repositories) > 250:
+            raise OrganizationTooLargeException(f"{self.name} has too many repositories to process.")
         for repo in self.repositories:
             if repo.needs_load and len(repo.contributors) > 0:
                 uncache(repo.contributors.keys(), self)

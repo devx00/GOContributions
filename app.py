@@ -5,7 +5,7 @@ from typing import Optional, Tuple, Union
 from github import GithubAPIException
 from utils import format_top_contributer
 from flask import Flask,request, jsonify, render_template
-from organization import Organization
+from organization import Organization, OrganizationTooLargeException
 from cache import CacheControl, ResponseCache
 from github import api
 from flask_cors import CORS
@@ -31,7 +31,11 @@ def root():
 def organization(orgname: str) -> Union[Optional[str] , Tuple[Optional[str], int]]:
     cachetype = CacheControl.parse_cachecontrol(request)
     force_refresh = cachetype == CacheControl.NoCache
-    org = Organization(orgname, force_refresh)
+    try:
+        org = Organization(orgname, force_refresh)
+    except OrganizationTooLargeException as e:
+        return jsonify({"message": e.message}),501
+
 
     if cachetype == CacheControl.CacheOK:
         if pair := maincache.get_withargs(orgname, request.args):

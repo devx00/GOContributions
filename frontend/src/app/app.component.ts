@@ -27,12 +27,13 @@ export class AppComponent {
     this.showInput = true;
   }
   error(e) {
+    this.clear();
     if (e.code === 404) {
-      this.clear();
       this.errorMessage = "Couldnt find that organization.";
-      this.showError = true;
-      console.log(this.errorMessage);
+    } else {
+      this.errorMessage = e.message;
     }
+    this.showError = true;
   }
 
 

@@ -47,6 +47,7 @@ Code | Meaning | Description
 **304** | Not Modified. | Sent if request specified a If-Modified-Since header and the data has not been modified since.
 **403** | Forbidden. | Happens if the Github API returns a 403. Typically is caused by a Rate Limit issue. If rate limit information is available it is returned in the response.
 **500**: | Unknown. | An unexpected error occurred. May or may not contain contextual data in the body.
+**501**: | Can't Handle Request. | The organization requested has too many repositories to be able to process.
 
 
 
