@@ -8,8 +8,11 @@ from flask import Flask,request, jsonify
 from organization import Organization
 from cache import CacheControl, ResponseCache
 from github import api
+from flask_cors import CORS
+
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 DEBUG = False
 load_dotenv()
 api.set_auth_token(getenv("GITHUB_TOKEN"))
