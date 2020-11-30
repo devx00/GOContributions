@@ -18,7 +18,7 @@ pipenv run ./app.py
 Endpoints
 ====
 # GET /
-Here you will find a super basic interface for querying the data. Its supor basic, and mainly for testing purposes.
+Here you will find a super basic interface for querying the data. Its super basic, and mainly for testing purposes.
 
 # GET /<Organization Name\>
 
