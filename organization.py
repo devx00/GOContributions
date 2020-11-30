@@ -146,9 +146,10 @@ class Organization:
         for repo in fetch_all(f"{self.endpoint}/repos"):
             name = repo['name']
             url = repo['url']
-            last_push = datetime.strptime(repo['pushed_at'],
-                                          "%Y-%m-%dT%H:%M:%S%z")
-            self.repositories.append(Repository(name, url, last_push, self.force_refresh))
+            if repo['pushed_at'] is not None:
+                last_push = datetime.strptime(repo['pushed_at'],
+                                            "%Y-%m-%dT%H:%M:%S%z")
+                self.repositories.append(Repository(name, url, last_push, self.force_refresh))
         for repo in self.repositories:
             if repo.needs_load and len(repo.contributors) > 0:
                 uncache(repo.contributors.keys(), self)
