@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-from os import abort, getenv
+from os import getenv
 from dotenv import load_dotenv
 from typing import Optional, Tuple, Union
 from github import GithubAPIException
 from utils import format_top_contributer
 from flask import Flask,request, jsonify
-from flask.signals import request_finished
 from organization import Organization
 from cache import CacheControl, ResponseCache
 from github import api
@@ -59,14 +58,9 @@ def organization(orgname: str) -> Union[Optional[str] , Tuple[Optional[str], int
         'Last-Modified': CacheControl.get_modifiedsince(org.last_changed)
     } #type: ignore
 
-
 @app.errorhandler(GithubAPIException)
 def api_error(error):
     return jsonify(error.response()), error.status_code
-
-
-
-
 
 if __name__ == '__main__':
     app.run()

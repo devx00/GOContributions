@@ -32,10 +32,12 @@ class GithubRateLimitExceeded(GithubAPIException):
 API_LOCK = RLock()
 class GithubAPI(Session):
     req_count = 0
+
     @property
     def req_remaining(self):
         with API_LOCK:
             return self._req_remaining
+
     @req_remaining.setter
     def req_remaining(self, remaining):
         if type(remaining) is not int:
@@ -50,6 +52,7 @@ class GithubAPI(Session):
     def req_reset(self):
         with API_LOCK:
             return self._req_reset
+
     @req_reset.setter
     def req_reset(self, reset):
         if type(reset) is not int:
@@ -64,6 +67,7 @@ class GithubAPI(Session):
     def counter(self):
         with API_LOCK:
             return GithubAPI.req_count
+
     @classmethod
     def add_request(cls):
         with API_LOCK:
